@@ -84,7 +84,7 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
   }
 
   return (
-    <main className="relative p-2 md:p-4 lg:py-6 lg:px-8 lg:gap-10 xl:grid xl:grid-cols-[1fr_200px]">
+    <main className="flex p-2 md:p-4 lg:py-6 lg:px-8 lg:gap-10 xl:grid xl:grid-cols-[1fr_180px]">
       <div className="w-full mx-auto min-w-0">
         <Breadcrumb className="mb-4">
           <BreadcrumbList>
@@ -114,16 +114,16 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
         </Breadcrumb>
 
         <div className="space-y-2">
-          <h1 className={cn("scroll-m-20 text-3xl font-bold tracking-tight")}>
+          <h1 className={cn("scroll-m-20 text-5xl font-bold tracking-tight")}>
             {blog.title}
           </h1>
           {blog && (
-            <p className="text-base text-muted-foreground">
+            <p className="tracking-tight text-muted-foreground">
               <Balancer>{blog.description}</Balancer>
             </p>
           )}
         </div>
-        <div className="pb-12 pt-8">
+        <div className="py-15">
           <MDXContentRenderer code={blog.body} />
         </div>
       </div>

@@ -186,7 +186,7 @@ export const mdxComponents = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        "relative rounded p-2 border border-border mt-3 font-mono text-sm bg-[#202020]", 
+        "flex rounded p-2 border border-border mt-3 font-mono text-sm bg-[#202020] overflow-x-auto", 
         className
       )}
       {...props}

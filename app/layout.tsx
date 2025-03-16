@@ -64,13 +64,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+        >
+          {/* Centered container with space on both sides */}
+          <div className="flex items-center justify-center max-w-6xl mx-auto px-10 xl:px-3">
             {children}
-          </ThemeProvider>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

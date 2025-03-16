@@ -13,7 +13,7 @@ export const CodeBlock = ({
       </div>
       <div className="w-full p-[2px]">
         <pre
-          className={cn("overflow-x-auto p-4 rounded-md font-mono bg-transparent", className)}
+          className={cn("overflow-x-auto p-4 rounded-md font-mono", className)}
           {...props}
         >
           <code>{children}</code>
