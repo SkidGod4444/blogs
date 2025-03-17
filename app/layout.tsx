@@ -6,9 +6,11 @@ import { siteConfig } from "@/config/site.config";
 import CommunityBanner from "@/components/custom/community.banner";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Manrope({
-  variable: "--font-geist-sans",
+const ManropeSans = Manrope({
+  weight: ["400", "700"],
   subsets: ["latin"],
+  display: "swap",
+  fallback: ["sans-serif"],
 });
 
 const geistMono = Geist_Mono({
@@ -64,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${ManropeSans} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
