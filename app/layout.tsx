@@ -3,6 +3,8 @@ import { Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme.provider";
 import { siteConfig } from "@/config/site.config";
+import CommunityBanner from "@/components/custom/community.banner";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Manrope({
   variable: "--font-geist-sans",
@@ -69,11 +71,17 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          {/* Centered container with space on both sides */}
-          <div className="flex items-center justify-center max-w-6xl mx-auto px-10 xl:px-3">
+          {/* Floating Community Banner */}
+          <div className="hidden md:block fixed top-0 left-0 w-full z-[5000]">
+            <CommunityBanner />
+          </div>
+
+          {/* Push content down to prevent overlap */}
+          <div className="md:pt-10 lg:max-w-20xl mx-auto px-6 xl:px-30">
             {children}
           </div>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

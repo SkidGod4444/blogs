@@ -84,7 +84,7 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
   }
 
   return (
-    <main className="flex p-2 md:p-4 lg:py-6 lg:px-8 lg:gap-10 xl:grid xl:grid-cols-[1fr_180px]">
+    <main className="relative p-2 md:p-4 lg:py-6 md:gap-10 lg:grid lg:grid-cols-[1fr_180px]">
       <div className="w-full mx-auto min-w-0">
         <Breadcrumb className="mb-4">
           <BreadcrumbList>

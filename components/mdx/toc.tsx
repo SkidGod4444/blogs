@@ -5,6 +5,9 @@ import { useMounted } from "@/hooks/use-mounted";
 import { ListTree, PencilLine } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import BookMarkBtn from "../custom/bookmark.btn";
+import LikeBtn from "../custom/like.btn";
+import ShareBtn from "../custom/share.btn";
 
 interface TocEntry {
   items?: TocEntry[];
@@ -100,14 +103,18 @@ export function DashboardTableOfContents({ toc, github }: TocProps) {
         />
       </div>
 
-      <div className="flex flex-col border-t py-5 w-full gap-10">
+      <div className="flex flex-col border-t py-5 w-full gap-2">
         <Link href={github || "#"}>
           <Button size={"sm"} variant={"secondary"} className="cursor-pointer">
             <span>Edit this page on GitHub</span>
             <PencilLine className="h-4 w-4" />
           </Button>
         </Link>
-{/*  */}
+        <div className="flex flex-row gap-2">
+        <ShareBtn/>
+        <LikeBtn/>
+        <BookMarkBtn/>
+        </div>
       </div>
     </div>
   ) : null;
