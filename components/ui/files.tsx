@@ -1,5 +1,5 @@
 import React from "react";
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { FolderIcon, FolderOpenIcon, FileIcon, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 

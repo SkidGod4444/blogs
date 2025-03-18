@@ -6,7 +6,7 @@ toc:
   visible: true
 date: 2024-03-14
 cover: ""
-github: https://github.com/plura-ai
+github: https://github.com/SkidGod4444/blogs/blob/main/content/blogs/build-your-own-database.mdx
 shortenSlug: "byodb"
 ---
 
@@ -18,4 +18,37 @@ shortenSlug: "byodb"
 </Callout>
 
 ## Introduction
-As a developer, I wanted to understand how databases work under the hood, including data structures like <b>B-Trees</b> and <b>Red-Black Trees</b>. Instead of just reading about them, I decided to build my own database from scratch in TypeScript. This post outlines my journey of creating <b>LumeDB</b>, an <b>industry-ready, file-based, and performant database</b>.
+As a developer, I wanted to understand how databases work under the hood, including data structures like 
+<b>B-Trees</b> and <b>Red-Black Trees</b>. Instead of just reading about them, I decided to build my own database from scratch in 
+TypeScript. This post outlines my journey of creating <b>LumeDB</b>, an <b>industry-ready, file-based, and performant database</b>.
+
+## Technologies
+
+Feel free to choose any other alternatives you are familiar with. These are my choices:
+
+- [***TypeScript***](https://www.typescriptlang.org/) - We'll be using TypeScript as our core language but you can go along with **GO** lang.
+- [***Bun***](https://bun.sh/) - We'll be using Bun as our runtime.
+- [***Docker***](https://www.docker.com/) - We'll need to dockerize everything in order to scale & run multiple database instances in containers. 
+- [***Hono.Js***](https://hono.dev/) - We'll be using Hono to build Ultrafast & Lightweight API endpoints.
+
+## Project Setup
+
+- **Language & Runtime:** TypeScript + Bun
+- **Folder Structure:**
+
+```bash
+├── src/
+│   ├── storage/
+│   │   ├── file.mngr.ts  # File handling logic
+│   ├── server.ts         # HTTP API for the database
+│   ├── cli.ts            # Command Line Interface
+│   ├── main.ts           # Entry point
+├── data/                 # Stores database files
+├── Dockerfile            # Docker setup
+├── docker-compose.yml    # Container orchestration
+```
+
+- **Storage Choice:** Binary files (.bin) for efficient data retrieval
+
+##  File-Based Storage Implementation
+- Implemented a **FileManager** to handle reading and writing efficiently:
