@@ -118,12 +118,12 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
             {blog.title}
           </h1>
           {blog && (
-            <p className="tracking-tight text-muted-foreground">
+            <p className="tracking-tight text-muted-foreground mt-5">
               <Balancer>{blog.description}</Balancer>
             </p>
           )}
         </div>
-        <div className="py-15">
+        <div className="py-5">
           <MDXContentRenderer code={blog.body} />
         </div>
       </div>

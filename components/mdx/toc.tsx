@@ -90,7 +90,7 @@ export function DashboardTableOfContents({ toc, github, shortenSlug }: TocProps)
   }, []);
 
   return mounted ? (
-    <div className="space-y-2">
+    <div className="space-y-2 md:mt-10">
       <div className="flex flex-row gap-2 text-muted-foreground">
         <ListTree className="size-4" />
         <p className="font-medium">On this page</p>

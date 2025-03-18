@@ -77,7 +77,7 @@ export default function RootLayout({
           </div>
 
           {/* Push content down to prevent overlap */}
-          <div className="md:pt-10 lg:max-w-20xl mx-auto px-6 xl:px-30">
+          <div className="md:mt-10 lg:max-w-20xl mx-auto px-6 xl:px-20">
             {children}
           </div>
         </ThemeProvider>
