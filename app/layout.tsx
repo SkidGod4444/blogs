@@ -6,11 +6,9 @@ import { siteConfig } from "@/config/site.config";
 import CommunityBanner from "@/components/custom/community.banner";
 import { Toaster } from "@/components/ui/sonner";
 
-const ManropeSans = Manrope({
-  weight: ["400", "700"],
+const geistSans = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  display: "swap",
-  fallback: ["sans-serif"],
 });
 
 const geistMono = Geist_Mono({
@@ -25,8 +23,8 @@ export const metadata: Metadata = {
   keywords: siteConfig.keywords,
   creator: siteConfig.name,
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
+    icon: "/static/me.jpg",
+    shortcut: "/static/me.jpg",
   },
   openGraph: {
     title: siteConfig.title,
@@ -66,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${ManropeSans} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

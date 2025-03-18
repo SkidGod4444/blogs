@@ -1,5 +1,4 @@
 "use client";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,12 +10,17 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { CheckIcon, CopyIcon, Share } from "lucide-react";
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-export default function ShareBtn() {
+export default function ShareBtn({shortenSlug}: {shortenSlug: string}) {
   const id = useId();
   const [copied, setCopied] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [shortUrl, setShortUrl] = useState<string>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pathname = usePathname();
 
   const handleCopy = () => {
     if (inputRef.current) {
@@ -26,9 +30,55 @@ export default function ShareBtn() {
     }
   };
 
+  useEffect(() => {
+    console.log("useEffect triggered - isOpen:", isOpen, "shortenSlug:", shortenSlug);
+    
+    const fetchShortUrl = async () => {
+      if (isOpen) {
+        setIsLoading(true);
+        try {
+          console.log("Fetching short URL...");
+          const response = await fetch(`/api/dub?shortenSlug=${shortenSlug}`);
+  
+          const data = await response.json();
+          console.log("API Response:", data);
+  
+          if (data.error) {
+            console.warn("Short link not found, creating new one...");
+  
+            const resp = await fetch("/api/dub", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ url: `https://blogs.devwtf.in${pathname}`, shortenSlug }),
+            });
+  
+            const link = await resp.json();
+            console.log("Created short URL:", link);
+  
+            if (link.shortUrl) {
+              setShortUrl(link.shortUrl);
+            }
+          } else {
+            if (data) {
+              console.log("Fetched short URL:", data);
+              setShortUrl(data);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching short URL:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+  
+    fetchShortUrl();
+  }, [isOpen, shortenSlug, pathname]);
+
+
   return (
     <div className="flex flex-col gap-4">
-      <Popover>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="cursor-pointer">
             <Share/>
@@ -52,24 +102,29 @@ export default function ShareBtn() {
               </Button>
             </div> */}
             <div className="space-y-2">
-              <div className="relative">
+              <div className={cn(
+                            "relative",
+                            isLoading ? "cursor-progress" : "cursor-copy",
+                          )}>
                 <Input
-                  ref={inputRef}
-                  id={id}
-                  className="pe-9"
-                  type="text"
-                  defaultValue="https://l.devwtf.in/Avx8HD"
-                  aria-label="Share link"
-                  readOnly
-                />
+  ref={inputRef}
+  id={id}
+  className="pe-9"
+  type="text"
+  placeholder="https://b.devwtf.in/..."
+  value={shortUrl ?? ""}
+  aria-label="Share link"
+  disabled={isLoading}
+  readOnly={!isLoading}
+/>
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button
                         onClick={handleCopy}
-                        className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed"
+                        className="text-muted-foreground/80 cursor-pointer hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed"
                         aria-label={copied ? "Copied" : "Copy to clipboard"}
-                        disabled={copied}
+                        disabled={copied || isLoading}
                       >
                         <div
                           className={cn(

@@ -130,7 +130,7 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
       <div className="hidden text-sm xl:block">
         <div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] pt-4">
           {blog.toc.visible && (
-            <DashboardTableOfContents toc={blog.toc.content} />
+            <DashboardTableOfContents toc={blog.toc.content} github={blog.github} shortenSlug={blog.shortenSlug} />
           )}
         </div>
       </div>

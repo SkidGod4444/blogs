@@ -18,9 +18,10 @@ interface TocEntry {
 interface TocProps {
   toc: TocEntry[];
   github?: string;
+  shortenSlug: string;
 }
 
-export function DashboardTableOfContents({ toc, github }: TocProps) {
+export function DashboardTableOfContents({ toc, github, shortenSlug }: TocProps) {
   const itemIds = React.useMemo(
     () =>
       toc
@@ -111,8 +112,8 @@ export function DashboardTableOfContents({ toc, github }: TocProps) {
           </Button>
         </Link>
         <div className="flex flex-row gap-2">
-        <ShareBtn/>
-        <LikeBtn/>
+        <ShareBtn shortenSlug={shortenSlug}/>
+        <LikeBtn keyName={shortenSlug}/>
         <BookMarkBtn/>
         </div>
       </div>
