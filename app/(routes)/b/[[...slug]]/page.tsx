@@ -51,7 +51,7 @@ export async function generateMetadata({
       url: absoluteUrl(blog.slug),
       images: [
         {
-          url: siteConfig.og,
+          url: blog.cover || siteConfig.og,
           width: 2880,
           height: 1800,
           alt: siteConfig.name,
@@ -62,7 +62,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: blog.title,
       description: blog.description,
-      images: [siteConfig.og],
+      images: [blog.cover || siteConfig.og,],
       creator: "Saidev Dhal",
     },
   };

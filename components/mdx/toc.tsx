@@ -105,7 +105,7 @@ export function DashboardTableOfContents({ toc, github, shortenSlug }: TocProps)
       </div>
 
       <div className="flex flex-col border-t py-5 w-full gap-2">
-        <Link href={github || "#"}>
+        <Link href={github || "#"} target="_blank" rel="noopener noreferrer">
           <Button size={"sm"} variant={"secondary"} className="cursor-pointer">
             <span>Edit this page on GitHub</span>
             <PencilLine className="h-4 w-4" />

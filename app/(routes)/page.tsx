@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-  const [timer, setTimer] = useState(5); // Countdown starts from 5
+  const [timer, setTimer] = useState(10);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -13,7 +13,7 @@ export default function Home() {
 
     const timeout = setTimeout(() => {
       router.push("https://devwtf.in/blog");
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(interval);

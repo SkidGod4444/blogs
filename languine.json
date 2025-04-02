@@ -1,0 +1,21 @@
+{
+  "projectId": "prj_DZr7a0fmCyNGnKAJvzmcp",
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es",
+      "fr",
+      "de",
+      "zh",
+      "ja",
+      "pt"
+    ]
+  },
+  "files": {
+    "mdx": {
+      "include": [
+        "content/[locale]/**/*.mdx"
+      ]
+    }
+  }
+}

@@ -37,15 +37,15 @@
     "slugAsParams": "build-your-own-database"
   },
   {
-    "slug": "blogs/discord-development-series-beginner-to-advanced-level",
-    "title": "Discord development series Beginner to Advanced level",
-    "description": "This project will help you grasp low-level systems without requiring any prior knowledge of database engineering. I’ve included all the essential details to guide you through how everything works, and I’ve also used ChatGPT to strengthen my understanding of the concepts. Hope this helps you.",
-    "github": "https://github.com/SkidGod4444/blogs/blob/main/content/blogs/discord-development-series-beginner-to-advanced-level.mdx",
-    "cover": "",
+    "slug": "blogs/discord-development-beginner-to-advanced-level",
+    "title": "Discord bot development Beginner to Advanced level",
+    "description": "A comprehensive guide to Discord bot development, covering essential concepts and best practices from fundamentals to advanced implementations. This tutorial walks through building a complete Ticket System bot, demonstrating practical application of Discord.js concepts and patterns.",
+    "github": "https://github.com/SkidGod4444/blogs/blob/main/content/blogs/discord-development-beginner-to-advanced-level.mdx",
+    "cover": "/static/ddsba.png",
     "shortenSlug": "ddsba",
     "published": true,
-    "date": "2024-03-14T00:00:00.000Z",
-    "body": "const{Fragment:e,jsx:n,jsxs:t}=arguments[0];function _createMdxContent(o){const r={a:\"a\",h2:\"h2\",p:\"p\",span:\"span\",...o.components},{Callout:i,CalloutDescription:a,CalloutTitle:s}=r;return i||_missingMdxReference(\"Callout\",!0),a||_missingMdxReference(\"CalloutDescription\",!0),s||_missingMdxReference(\"CalloutTitle\",!0),t(e,{children:[t(i,{type:\"info\",children:[n(s,{children:\"Note\"}),n(a,{children:t(r.p,{children:[\"This project is a work in progress, and the content of this blog may be updated over time. We’re also documenting the journey through a playlist on our \",n(r.a,{href:\"https://dub.sh/skidgod\",children:\"YouTube channel\"}),\", so be sure to subscribe!\"]})})]}),\"\\n\",t(r.h2,{id:\"introduction\",children:[n(r.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#introduction\",children:n(r.span,{className:\"icon icon-link\"})}),\"Introduction\"]}),\"\\n\",t(r.p,{children:[\"As a developer, I wanted to understand how databases work under the hood, including data structures like\\n\",n(\"b\",{children:\"B-Trees\"}),\" and \",n(\"b\",{children:\"Red-Black Trees\"}),\". Instead of just reading about them, I decided to build my own database from scratch in\\nTypeScript. This post outlines my journey of creating \",n(\"b\",{children:\"LumeDB\"}),\", an \",n(\"b\",{children:\"industry-ready, file-based, and performant database\"}),\".\"]})]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};function _missingMdxReference(e,n){throw new Error(\"Expected \"+(n?\"component\":\"object\")+\" `\"+e+\"` to be defined: you likely forgot to import, pass, or provide it.\")}",
+    "date": "2024-04-02T00:00:00.000Z",
+    "body": "const{Fragment:e,jsx:n,jsxs:t}=arguments[0];function _createMdxContent(o){const i={a:\"a\",h2:\"h2\",p:\"p\",span:\"span\",...o.components},{Callout:r,CalloutDescription:c,CalloutTitle:a}=i;return r||_missingMdxReference(\"Callout\",!0),c||_missingMdxReference(\"CalloutDescription\",!0),a||_missingMdxReference(\"CalloutTitle\",!0),t(e,{children:[t(r,{type:\"info\",children:[n(a,{children:\"Note\"}),n(c,{children:t(i.p,{children:[\"Follow along with our step-by-step video tutorials on our \",n(i.a,{href:\"https://dub.sh/skidgod\",children:\"YouTube channel\"}),\" - don't forget to watch and subscribe to stay updated!\"]})})]}),\"\\n\",t(i.h2,{id:\"introduction\",children:[n(i.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#introduction\",children:n(i.span,{className:\"icon icon-link\"})}),\"Introduction\"]}),\"\\n\",n(i.p,{children:\"Later on baby!\"})]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};function _missingMdxReference(e,n){throw new Error(\"Expected \"+(n?\"component\":\"object\")+\" `\"+e+\"` to be defined: you likely forgot to import, pass, or provide it.\")}",
     "toc": {
       "content": [
         {
@@ -56,6 +56,6 @@
       ],
       "visible": true
     },
-    "slugAsParams": "discord-development-series-beginner-to-advanced-level"
+    "slugAsParams": "discord-development-beginner-to-advanced-level"
   }
 ]
