@@ -17,10 +17,6 @@ export default function Home() {
 
     setIsLoading(true);
     try {
-      // Here you would typically call your API to handle the subscription
-      // For example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
-      
-      // Simulating API call with timeout
       console.log("Subscribing to newsletter...");
       const res = await fetch("https://nsl.devwtf.in/api/v1/subs/add", {
         method: "POST",
