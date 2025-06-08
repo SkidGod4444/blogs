@@ -1,5 +1,5 @@
 ---
-title: Build your own Custom Database using TypeScript
+title: Build your own SQL Database using TypeScript
 description: This project will help you grasp low-level systems without requiring any prior knowledge of database engineering. I’ve included all the essential details to guide you through how everything works, and I’ve also used ChatGPT to strengthen my understanding of the concepts. Hope this helps you.
 published: true
 toc:
@@ -20,35 +20,174 @@ shortenSlug: "byodb"
 ## Introduction
 As a developer, I wanted to understand how databases work under the hood, including data structures like 
 <b>B-Trees</b> and <b>Red-Black Trees</b>. Instead of just reading about them, I decided to build my own database from scratch in 
-TypeScript. This post outlines my journey of creating <b>LumeDB</b>, an <b>industry-ready, file-based, and performant database</b>.
+TypeScript. This blog walks you through how we designed and implemented a realistic SQL-like database engine in TypeScript using:
+
+- A custom parser for simple SQL syntax
+- A B-tree-based key-value store
+- A file-based storage system for data persistence
+- Binary disk persistence
+- Write-ahead logging (WAL)
+- Support for multiple tables
+- Basic SQL operations like SELECT, INSERT, UPDATE, and DELETE
 
 ## Technologies
 
 Feel free to choose any other alternatives you are familiar with. These are my choices:
 
 - [***TypeScript***](https://www.typescriptlang.org/) - We'll be using TypeScript as our core language but you can go along with **GO** lang.
-- [***Bun***](https://bun.sh/) - We'll be using Bun as our runtime.
-- [***Docker***](https://www.docker.com/) - We'll need to dockerize everything in order to scale & run multiple database instances in containers. 
-- [***Hono.Js***](https://hono.dev/) - We'll be using Hono to build Ultrafast & Lightweight API endpoints.
-
+- [***Bun***](https://bun.sh/) - We'll be using Bun as our runtime environment, which is a fast JavaScript runtime like Node.js but with better performance and built-in TypeScript support.
 ## Project Setup
 
 - **Language & Runtime:** TypeScript + Bun
 - **Folder Structure:**
 
 ```bash
+LumeDB/
 ├── src/
 │   ├── storage/
-│   │   ├── file.mngr.ts  # File handling logic
-│   ├── server.ts         # HTTP API for the database
-│   ├── cli.ts            # Command Line Interface
-│   ├── main.ts           # Entry point
-├── data/                 # Stores database files
-├── Dockerfile            # Docker setup
-├── docker-compose.yml    # Container orchestration
+│   │   └── pager.ts
+│   ├── wal/
+│   │   └── wal.ts
+│   ├── btree/
+│   │   └── btree.ts
+│   ├── engine/
+│   │   ├── record.ts
+│   │   └── query.ts
+│   ├── parser/
+│   │   └── sqlParser.ts
+│   └── main.ts
+├── db/
+│   ├── data.db
+│   └── wal.log
+├── package.json
+├── tsconfig.json
 ```
 
-- **Storage Choice:** Binary files (.bin) for efficient data retrieval
+##  🧱 Step 1: The Basic CLI Shell
+We start with a command-line interface using "readline-sync".
 
-##  File-Based Storage Implementation
-- Implemented a **FileManager** to handle reading and writing efficiently:
+```typescript
+const db = new DB('db/data.db', 'db/wal.log');
+while (true) {
+  const input = readlineSync.question('> ');
+  const result = db.execute(input.trim());
+  console.log(result);
+}
+```
+This REPL-style loop allows us to input SQL commands and interact with the database engine in real time.
+
+**Benefits:**
+- Simple to implement
+- Interactive testing
+
+**Improvements:**
+- Use a web API or REPL framework for remote or web-based interaction
+
+## 🧠 Step 2: Core Database Logic
+
+To handle SQL commands, we need a parser that can interpret basic SQL syntax.
+We built a custom parser to handle basic SQL commands:
+```bash
+INSERT INTO table VALUES (1, "Alice")
+SELECT * FROM table WHERE id = 1
+DELETE FROM table WHERE id = 1
+```
+This is handled by parseSQL() which returns a structured command object with:
+```typescript
+{
+  command: 'INSERT' | 'SELECT' | 'DELETE',
+  table: 'tableName',
+  values: [1, "Alice"],
+  where: { id: 1 }
+}
+```
+**Improvements:**
+- Use a parser generator like PEG.js or ANTLR for extensibility
+
+## 🌳 Step 3: B-Tree In-Memory Store
+We use a simple in-memory B-tree implementation for fast key-value access:
+```typescript 
+this.btree.insert(key, value);
+this.btree.search(key);
+this.btree.delete(key);
+```
+**Benefits:**
+- Logarithmic access time
+- Balanced tree prevents degeneration
+
+**Real-World Upgrade:**
+- Use a B+ tree where leaf nodes are linked for fast range scans
+- Store tree nodes in fixed-size pages with serialization
+
+## 💾 Step 4: Persistent Storage with Pager
+Instead of keeping data only in memory, we use a Pager that writes to disk:
+```typescript
+const buffer = Buffer.from(`${key}:${value}\n`);
+fs.writeFileSync(this.path, buffer);
+```
+This simulates pages by storing rows as *key:value* strings.
+
+**Limitations:**
+- Not real page-based binary format yet
+- No offset/index-based updates
+
+**Future Work:**
+- Use fixed-size binary pages (e.g. 4096 bytes)
+- Store records at offsets, reuse deleted slots
+
+## 🔐 Step 5: Write-Ahead Log (WAL)
+We implemented WAL to ensure durability:
+```typescript
+this.wal.log(`INSERT users 1 Alice`);
+// this.wal.flush();
+```
+**Why WAL?**
+
+The Write-Ahead Log (WAL) is crucial for database reliability:
+
+1. **Crash Safety**: If the database crashes, we can replay the WAL to recover the last consistent state
+2. **Atomicity**: WAL ensures that transactions are either fully committed or fully rolled back
+3. **Recovery**: Provides a way to restore the database to a known good state
+
+**Production Suggestions:**
+
+For a production-ready WAL implementation:
+
+1. **Log Compaction**: Periodically compact the WAL by removing redundant entries
+2. **Table-Specific WALs**: Maintain separate WAL files per table for better concurrency
+3. **Checkpoints**: Regularly create checkpoints to reduce WAL replay time
+
+## 📁 Step 6: Multi-Table Support
+Now we support multiple tables by using a Map:
+```typescript
+this.tables: Map<string, { btree, pager }>
+this.tables.set('users', { btree: new BTree(), pager: new Pager('db/users.db') });
+```
+Each table has its own B-tree and Pager file like *data.db.users*.
+
+**Benefits:**
+- Simulates real RDBMS architecture
+- Isolates tables
+
+**Improvements:**
+- Support CREATE TABLE command
+- Normalize table schema definition
+
+## 🔚 Conclusion
+We've built a realistic SQL-like database from scratch using simple but scalable techniques:
+
+- SQL command parser
+- B-tree structure  
+- Persistent storage
+- WAL logging
+- Multi-table support
+
+This is a powerful learning experience for any developer and a stepping stone to more advanced database design.
+
+## 📌 GitHub Repository
+If you'd like a downloadable template of this codebase or want to contribute, [here you go](https://github.com/SkidGod4444/LumeDB)
+
+Let me know which part you’d like to explore next: pages, indexes, transactions, or query planner?
+
+Happy hacking! 🛠️
+
