@@ -92,5 +92,27 @@
       "visible": true
     },
     "slugAsParams": "discord-development-beginner-to-advanced-level"
+  },
+  {
+    "slug": "blogs/understanding-libuv-with-practical-guide",
+    "title": "Understanding libuv — A Practical Guide to Asynchronous I/O in C",
+    "description": "A hands-on guide to learning and using libuv, the asynchronous I/O library powering Node.js’s event loop. This tutorial walks through every major feature — timers, TCP/UDP networking, file system operations, threadpool tasks, signals, async handles, and process management — with clear, runnable C examples. Perfect for developers who want to understand and apply event-driven programming concepts directly in C.",
+    "github": "https://github.com/SkidGod4444/blogs/blob/main/content/blogs/understanding-libuv-with-practical-guide.mdx",
+    "cover": "",
+    "shortenSlug": "u-libuv",
+    "published": true,
+    "date": "2025-09-01T00:00:00.000Z",
+    "body": "const{jsx:n,jsxs:e}=arguments[0];function _createMdxContent(t){const a={a:\"a\",h2:\"h2\",span:\"span\",...t.components};return e(a.h2,{id:\"its-a-demo\",children:[n(a.a,{className:\"subheading-anchor\",\"aria-label\":\"Link to section\",href:\"#its-a-demo\",children:n(a.span,{className:\"icon icon-link\"})}),\"it's a demo\"]})}return{default:function(e={}){const{wrapper:t}=e.components||{};return t?n(t,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+    "toc": {
+      "content": [
+        {
+          "title": "it's a demo",
+          "url": "#its-a-demo",
+          "items": []
+        }
+      ],
+      "visible": true
+    },
+    "slugAsParams": "understanding-libuv-with-practical-guide"
   }
 ]

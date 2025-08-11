@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { blogs } from "#site/content";
-
 import type { Metadata } from "next";
 import Balancer from "react-wrap-balancer";
 import {
@@ -10,9 +9,8 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
 import { siteConfig } from "@/config/site.config";
-import { cn } from "@/lib/utils";
+import { absoluteUrl, cn } from "@/lib/utils";
 import { DashboardTableOfContents } from "@/components/mdx/toc";
 import { MDXContentRenderer } from "@/components/mdx/content.renderer";
 
@@ -51,10 +49,9 @@ export async function generateMetadata({
       url: absoluteUrl(blog.slug),
       images: [
         {
-          url: blog.cover || siteConfig.og,
-          width: 2880,
-          height: 1800,
-          alt: siteConfig.name,
+          url: `/api/og?title=${encodeURIComponent(
+            blog.title
+          )}&description=${encodeURIComponent(blog.description)}`,
         },
       ],
     },
@@ -62,8 +59,14 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: blog.title,
       description: blog.description,
-      images: [blog.cover || siteConfig.og,],
-      creator: "Saidev Dhal",
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(
+            blog.title
+          )}&description=${encodeURIComponent(blog.description)}`,
+        },
+      ],
+      creator: "@SaidevDhal",
     },
   };
 }
@@ -137,7 +140,3 @@ export default async function BlogsPage({ params }: { params: Promise<DocPagePro
     </main>
   );
 }
-
-function absoluteUrl(path: string) {
-    return `https://blogs.devwtf.in/${path}`
-  }

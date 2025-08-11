@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   keywords: siteConfig.keywords,
   creator: siteConfig.name,
   icons: {
-    icon: "/static/me.jpg",
-    shortcut: "/static/me.jpg",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
   },
   openGraph: {
     title: siteConfig.title,
