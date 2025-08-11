@@ -79,7 +79,16 @@ export async function GET(request: Request) {
               textWrap: "balance",
             }}
           >
-            {description}
+            {(() => {
+              if (!description) return null;
+              // Split description into words
+              const words = description.split(/\s+/);
+              if (words.length <= 15) {
+                return description;
+              }
+              // Take first 15 words and add ellipsis
+              return words.slice(0, 15).join(" ") + " ...";
+            })()}
           </div>
         </div>
       </div>
